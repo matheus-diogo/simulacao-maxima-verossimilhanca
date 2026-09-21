@@ -6,14 +6,29 @@ library(dplyr)
 library(magrittr)
 
 ## Definição do Método Numérico para Estimação ###################################################################
-#
-# Em progresso...
-#
+
+### Definir uma função em parâmetro alpha, dada uma amostra, para aplicar o processo iterativo
+f_alpha <- function(alpha, amostra) {
+    log(alpha) - digamma(alpha) - log(mean(amostra)) + mean(log(amostra))
+}
+
+### Determinar a estimativa do parâmetro alpha pelo método de Brent aplicado a função f_alpha
+estimar_alpha <- function(amostra, intervalo) {
+    estimativa <- uniroot(
+        f = f_alpha,
+        interval = intervalo,
+        check.conv = TRUE,
+        amostra = amostra
+    )
+    return(estimativa$root)
+}
+
+#### A estimativa do parâmetro beta é expressa como a média amostral dividida pela estimativa do parâmetro alpha
 
 ## Geração de Diversas Amostras a partir da Distribuição Gama ####################################################
 
 ### Fixar a semente para reprodutibilidade
-set.seed(2026)
+### set.seed(2026)
 
 ### Selecionar os verdadeiros valores dos parâmetros da distribuição Gama
 alpha <- 4
@@ -39,16 +54,21 @@ for (t in tamanhos_amostrais) {
         tamanho_amostral <- t
 
         #### Estimar o parâmetro alpha pelo método numérico
-        #
-        # Em progresso...
-        #
-        estimativa_alpha <- NA
+        intervalo_inicial <- c(1, 10)
+        while (TRUE) {
+            estimativa_alpha <- try(
+                estimar_alpha(amostra, intervalo = intervalo_inicial),
+                silent = TRUE
+            )
+            ifelse(
+                is.numeric(estimativa_alpha),
+                break,
+                intervalo_inicial <- intervalo_inicial * c(0.5, 2)
+            )
+        }
 
-        #### Estimar o parâmetro beta pelo método numérico
-        #
-        # Em progresso...
-        #
-        estimativa_beta <- NA
+        #### Estimar o parâmetro beta
+        estimativa_beta <- mean(amostra) / estimativa_alpha
 
         #### Adicionar a r-ésima amostra na tabela criada
         amostras <- amostras %>%
@@ -59,6 +79,9 @@ for (t in tamanhos_amostrais) {
             )
     }
 }
+
+amostras %>%
+    summarise(med_est_alpha = mean(est_alpha), med_est_beta = mean(est_beta))
 
 ## Avaliação dos Estimadores #####################################################################################
 #
