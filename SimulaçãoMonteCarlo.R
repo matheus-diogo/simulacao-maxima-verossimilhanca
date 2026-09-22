@@ -28,7 +28,7 @@ estimar_alpha <- function(amostra, intervalo) {
 ## Geração de Diversas Amostras a partir da Distribuição Gama ####################################################
 
 ### Fixar a semente para reprodutibilidade
-### set.seed(2026)
+set.seed(2026)
 
 ### Selecionar os verdadeiros valores dos parâmetros da distribuição Gama
 alpha <- 4
@@ -80,10 +80,40 @@ for (t in tamanhos_amostrais) {
     }
 }
 
-amostras %>%
+## Avaliação dos Estimadores #####################################################################################
+
+### Para amostras de 20 observações
+
+#### Calcular a média das estimativas
+avaliacao_estimadores <- amostras %>%
+    filter(n == 200) %>%
     summarise(med_est_alpha = mean(est_alpha), med_est_beta = mean(est_beta))
 
-## Avaliação dos Estimadores #####################################################################################
-#
-# Em progresso...
-#
+#### Calcular o viés
+avaliacao_estimadores <- avaliacao_estimadores %>%
+    mutate(
+        vies_est_alpha = med_est_alpha - alpha,
+        vies_est_beta = med_est_beta - beta
+    )
+
+#### Calcular o viés relativo percentual
+avaliacao_estimadores <- avaliacao_estimadores %>%
+    mutate(
+        vies_rel_est_alpha = (100 / alpha) * vies_est_alpha,
+        vies_rel_est_beta = (100 / beta) * vies_est_beta
+    )
+
+#### Calcular a variância Monte Carlo
+var_monte_carlo <- amostras %>%
+    filter(n == 200) %>%
+    mutate(
+        var_mc_est_alpha = var(est_alpha - mean(est_alpha)),
+        var_mc_est_beta = var(est_beta - mean(est_beta))
+    ) %>%
+    select(var_mc_est_alpha, var_mc_est_beta) %>%
+    slice(1)
+
+avaliacao_estimadores <- bind_cols(avaliacao_estimadores, var_monte_carlo)
+
+#### Exibir a avaliação dos estimadores
+avaliacao_estimadores
