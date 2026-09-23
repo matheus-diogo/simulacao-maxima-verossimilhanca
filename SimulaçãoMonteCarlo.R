@@ -150,3 +150,6 @@ for (t in tamanhos_amostrais) {
 
 ### Exibir a tabela com a avaliação dos estimadores
 avaliacao_estimadores
+
+### Salvar a tabela em um arquivo CSV
+avaliacao_estimadores %>% write.csv(file = 'DadosAvaliaçãoEstimadores.csv', row.names = FALSE)
