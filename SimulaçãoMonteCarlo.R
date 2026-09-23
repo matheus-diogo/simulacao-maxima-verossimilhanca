@@ -27,9 +27,6 @@ estimar_alpha <- function(amostra, intervalo) {
 
 ## Geração de Diversas Amostras a partir da Distribuição Gama ####################################################
 
-### Fixar a semente para reprodutibilidade
-set.seed(2026)
-
 ### Selecionar os verdadeiros valores dos parâmetros da distribuição Gama
 alpha <- 4
 beta <- 3
@@ -44,6 +41,9 @@ amostras_estimativas <- tibble(
     est_alpha = numeric(),
     est_beta = numeric()
 )
+
+### Fixar a semente para garantir reprodutibilidade
+set.seed(2026)
 
 ### Gerar 10000 amostras para cada tamanho amostral
 for (t in tamanhos_amostrais) {
