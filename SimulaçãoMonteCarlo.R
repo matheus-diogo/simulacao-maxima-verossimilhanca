@@ -55,7 +55,7 @@ for (t in tamanhos_amostrais) {
         tamanho_amostral <- t
 
         #### Estimar o parâmetro alpha pelo método numérico
-        intervalo_inicial <- c(1, 1)
+        intervalo_inicial <- c(0.1, 10)
         while (TRUE) {
             estimativa_alpha <- try(
                 estimar_alpha(amostra, intervalo = intervalo_inicial),
