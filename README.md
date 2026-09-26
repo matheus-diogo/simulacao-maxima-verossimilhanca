@@ -28,7 +28,7 @@ Ademais, a apresentação foi estruturada pelo LaTeX.
 
 ## Resultados
 
-Com os critérios estabelecidos para a avaliação dos estimadores de máxima verossimilhaça, teve-se que as médias das estimativas de alfa e beta aproximaram-se dos respectivos parâmetros verdadeiros à medida que o tamanho amostral aumentou; os vieses diminuíram em magnitude e as variâncias de Monte Carlo foram reduzidas, indicando estimativas menos dispersas e com menores desvios médios; as distribuições das estimativas obtidas para ambos os parãmetros aproximaram-se das distribuições assintóticas dos seus estimadores.
+Com os critérios estabelecidos para a avaliação dos estimadores de máxima verossimilhaça, teve-se que as médias das estimativas de alfa e beta aproximaram-se dos respectivos parâmetros verdadeiros à medida que o tamanho amostral aumentou; os vieses diminuíram em magnitude e as variâncias de Monte Carlo foram reduzidas, indicando estimativas menos dispersas e com menores desvios médios; as distribuições das estimativas obtidas para ambos os parâmetros aproximaram-se das distribuições assintóticas dos seus estimadores de máxima verossimilhança.
 
 ## Licença
 Este projeto está sob a licença MIT.
