@@ -177,7 +177,7 @@ for (t in tamanhos_amostrais) {
         freq = FALSE
     )
 
-    #### Calcular variância teórica da distribuição do estimador de alpha
+    #### Calcular variância da distribuição assintótica do estimador de alpha
     var_teo_est_alpha <- 1 / (t * trigamma(alpha) - t / alpha)
 
     #### Adicionar a curva da f.d.p. da distribuição assintótica
@@ -211,7 +211,7 @@ for (t in tamanhos_amostrais) {
         freq = FALSE
     )
 
-    #### Calcular variância teórica da distribuição do estimador de beta
+    #### Calcular variância da distribuição assintótica do estimador de beta
     var_teo_est_beta <- (trigamma(alpha) * beta**2) /
         (t * alpha * trigamma(alpha) - t)
 
