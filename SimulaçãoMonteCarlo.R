@@ -138,7 +138,7 @@ for (t in tamanhos_amostrais) {
         erro_quad_medio
     )
 
-    if (t == 20) {
+    if (t == min(tamanhos_amostrais)) {
         avaliacao_estimadores <- avaliacao_parcial_estimadores
     } else {
         avaliacao_estimadores <- bind_rows(
