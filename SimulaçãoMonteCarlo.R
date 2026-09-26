@@ -64,14 +64,14 @@ for (t in tamanhos_amostrais) {
             ifelse(
                 is.numeric(estimativa_alpha),
                 break,
-                intervalo_inicial <- intervalo_inicial * c(1 / 2, 2)
+                intervalo_inicial <- intervalo_inicial * c(1/2, 2)
             )
         }
 
         #### Estimar o parâmetro beta
         estimativa_beta <- mean(amostra) / estimativa_alpha
 
-        #### Adicionar a r-ésima amostra na tabela criada
+        #### Adicionar a r-ésima amostra da tabela amostras_estimativas
         amostras_estimativas <- amostras_estimativas %>%
             add_row(
                 n = tamanho_amostral,
@@ -152,4 +152,74 @@ for (t in tamanhos_amostrais) {
 avaliacao_estimadores
 
 ### Salvar a tabela em um arquivo CSV
-avaliacao_estimadores %>% write.csv(file = 'DadosAvaliaçãoEstimadores.csv', row.names = FALSE)
+avaliacao_estimadores %>%
+    write.csv(file = 'DadosAvaliaçãoEstimadores.csv', row.names = FALSE)
+
+### Gerar os histogramas das estimativas do parâmetro alpha para cada tamanho amostral
+
+#### Organizar os histogramas em 2 por 3
+layout(matrix(c(
+  1, 1, 2, 2, 3, 3,
+  0, 4, 4, 5, 5, 0
+), 2, 6, byrow = TRUE))
+
+for (t in tamanhos_amostrais) {
+    #### Filtrar as amostras e estimativas por tamanho amostral t
+    n_amostras_estimativas <- amostras_estimativas %>% filter(n == t)
+
+    #### Gerar os histogramas por tamanho amostral t
+    hist(
+        x = n_amostras_estimativas$est_alpha,
+        main = paste0('De amostras com ',as.character(t), ' observações'),
+        col = '#d8caa3',
+        xlab = '',
+        ylab = '',
+        freq = FALSE
+    )
+
+    #### Calcular variância teórica da distribuição do estimador de alpha
+    var_teo_est_alpha <- 1 / (t * trigamma(alpha) - t / alpha)
+
+    #### Adicionar a curva da f.d.p. da distribuição assintótica
+    curve(
+        dnorm(x, mean = alpha, sd = sqrt(var_teo_est_alpha)),
+        col = 'red',
+        lty = 2,
+        add = TRUE
+    )
+}
+
+### Gerar os histogramas das estimativas do parâmetro beta para cada tamanho amostral
+
+#### Organizar os histogramas em 2 por 3
+layout(matrix(c(
+  1, 1, 2, 2, 3, 3,
+  0, 4, 4, 5, 5, 0
+), 2, 6, byrow = TRUE))
+
+for (t in tamanhos_amostrais) {
+    #### Filtrar as amostras e estimativas por tamanho amostral t
+    n_amostras_estimativas <- amostras_estimativas %>% filter(n == t)
+
+    #### Gerar os histogramas por tamanho amostral t
+    hist(
+        x = n_amostras_estimativas$est_beta,
+        main = paste0('De amostras com ',as.character(t), ' observações'),
+        col = '#d8caa3',
+        xlab = '',
+        ylab = '',
+        freq = FALSE
+    )
+
+    #### Calcular variância teórica da distribuição do estimador de beta
+    var_teo_est_beta <- (trigamma(alpha) * beta**2) /
+        (t * alpha * trigamma(alpha) - t)
+
+    #### Adicionar a curva da f.d.p. da distribuição assintótica
+    curve(
+        dnorm(x, mean = beta, sd = sqrt(var_teo_est_beta)),
+        col = 'red',
+        lty = 2,
+        add = TRUE
+    )
+}
