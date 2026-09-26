@@ -1,5 +1,5 @@
 # Simulação de Monte Carlo no Estudo de Estimadores de Máxima Verossimilhança
-Trabalho acadêmico que aplica a simulação de Monte Carlo para estudar os estimadores de máxima verossimilhaça da distribuição Gama. O desenvolvimento é integralmente realizado pela Linguagem R.
+Trabalho acadêmico que aplica a simulação de Monte Carlo para estudar os estimadores de Máxima Verossimilhaça da distribuição Gama. O desenvolvimento é integralmente realizado pela Linguagem R.
 
 ## Objetivos
 
@@ -7,7 +7,7 @@ Trabalho acadêmico que aplica a simulação de Monte Carlo para estudar os esti
 - Realizar um estudo dos estimadores de máxima verossimilhaça por uma abordagem analítica.
 - Aplicar uma simulação para geração de amostras da distribuição Gama com determinados parâmetros.
 - Calcular as estimativas para cada amostra pela aplicação de um método numérico.
-- Analisar a distribuição empírica dos estimadores de máxima verossimilhaça.
+- Analisar a distribuição empírica dos estimadores de Máxima Verossimilhaça.
 
 ## Tecnologias
 
@@ -28,7 +28,7 @@ Ademais, a apresentação foi estruturada pelo LaTeX.
 
 ## Resultados
 
-Com os critérios estabelecidos para a avaliação dos estimadores de máxima verossimilhaça, teve-se que as médias das estimativas de alfa e beta aproximaram-se dos respectivos parâmetros verdadeiros à medida que o tamanho amostral aumentou; os vieses diminuíram em magnitude e as variâncias de Monte Carlo foram reduzidas, indicando estimativas menos dispersas e com menores desvios médios; as distribuições das estimativas obtidas para ambos os parâmetros aproximaram-se das distribuições assintóticas dos seus estimadores de máxima verossimilhança.
+Com os critérios estabelecidos para a avaliação dos estimadores de máxima verossimilhaça, teve-se que as médias das estimativas de alfa e beta aproximaram-se dos respectivos parâmetros verdadeiros à medida que o tamanho amostral aumentou; os vieses diminuíram em magnitude e as variâncias de Monte Carlo foram reduzidas, indicando estimativas menos dispersas e com menores desvios médios; as distribuições das estimativas obtidas para ambos os parâmetros aproximaram-se das distribuições assintóticas dos seus estimadores de Máxima Verossimilhança.
 
 ## Licença
 Este projeto está sob a licença MIT.
