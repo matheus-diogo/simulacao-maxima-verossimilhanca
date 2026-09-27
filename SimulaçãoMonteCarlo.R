@@ -170,7 +170,7 @@ for (t in tamanhos_amostrais) {
     #### Gerar os histogramas por tamanho amostral t
     hist(
         x = n_amostras_estimativas$est_alpha,
-        main = paste0('De amostras com ',as.character(t), ' observações'),
+        main = paste0('De amostras com ', as.character(t), ' observações'),
         col = '#d8caa3',
         xlab = '',
         ylab = '',
@@ -204,7 +204,7 @@ for (t in tamanhos_amostrais) {
     #### Gerar os histogramas por tamanho amostral t
     hist(
         x = n_amostras_estimativas$est_beta,
-        main = paste0('De amostras com ',as.character(t), ' observações'),
+        main = paste0('De amostras com ', as.character(t), ' observações'),
         col = '#d8caa3',
         xlab = '',
         ylab = '',
@@ -222,4 +222,48 @@ for (t in tamanhos_amostrais) {
         lty = 2,
         add = TRUE
     )
+}
+
+### Gerar os gráficos Q-Q das estimativas do parâmetro alpha para cada tamanho amostral
+
+#### Organizar os gráficos Q-Q em 2 por 3
+layout(matrix(c(
+  1, 1, 2, 2, 3, 3,
+  0, 4, 4, 5, 5, 0
+), 2, 6, byrow = TRUE))
+
+for (t in tamanhos_amostrais) {
+    #### Filtrar as amostras e estimativas por tamanho amostral t
+    n_amostras_estimativas <- amostras_estimativas %>% filter(n == t)
+
+    #### Gerar os gráficos Q-Q por tamanho amostral t
+    qqnorm(
+        y = n_amostras_estimativas$est_alpha,
+        main = paste0('De amostras com ', as.character(t), ' observações'),
+        xlab = 'Quantis Teóricos',
+        ylab =  'Quantis Empíricos',,
+        col = '#d8caa3'
+    ); qqline(n_amostras_estimativas$est_alpha, col = 'red')
+}
+
+### Gerar os gráficos Q-Q das estimativas do parâmetro beta para cada tamanho amostral
+
+#### Organizar os gráficos Q-Q em 2 por 3
+layout(matrix(c(
+  1, 1, 2, 2, 3, 3,
+  0, 4, 4, 5, 5, 0
+), 2, 6, byrow = TRUE))
+
+for (t in tamanhos_amostrais) {
+    #### Filtrar as amostras e estimativas por tamanho amostral t
+    n_amostras_estimativas <- amostras_estimativas %>% filter(n == t)
+
+    #### Gerar os gráficos Q-Q por tamanho amostral t
+    qqnorm(
+        y = n_amostras_estimativas$est_beta,
+        main = paste0('De amostras com ', as.character(t), ' observações'),
+        xlab = 'Quantis Teóricos',
+        ylab =  'Quantis Empíricos',,
+        col = '#d8caa3'
+    ); qqline(n_amostras_estimativas$est_beta, col = 'red')
 }
