@@ -243,7 +243,7 @@ for (t in tamanhos_amostrais) {
         xlab = 'Quantis Teóricos',
         ylab =  'Quantis Empíricos',,
         col = '#d8caa3'
-    ); qqline(n_amostras_estimativas$est_alpha, col = 'red')
+    ); qqline(n_amostras_estimativas$est_alpha, col = 'red', lty = 2)
 }
 
 ### Gerar os gráficos Q-Q das estimativas do parâmetro beta para cada tamanho amostral
@@ -265,5 +265,5 @@ for (t in tamanhos_amostrais) {
         xlab = 'Quantis Teóricos',
         ylab =  'Quantis Empíricos',,
         col = '#d8caa3'
-    ); qqline(n_amostras_estimativas$est_beta, col = 'red')
+    ); qqline(n_amostras_estimativas$est_beta, col = 'red', lty = 2)
 }
