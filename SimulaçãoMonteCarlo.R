@@ -195,7 +195,7 @@ for (t in tamanhos_amostrais) {
         y = n_amostras_estimativas$est_alpha,
         main = paste0('De amostras com ', as.character(t), ' observações'),
         xlab = 'Quantis Teóricos',
-        ylab =  'Quantis Empíricos',,
+        ylab =  'Quantis Empíricos',
         col = '#d8caa3'
     ); qqline(n_amostras_estimativas$est_alpha, col = 'red', lty = 2)
 }
@@ -217,7 +217,7 @@ for (t in tamanhos_amostrais) {
         y = n_amostras_estimativas$est_beta,
         main = paste0('De amostras com ', as.character(t), ' observações'),
         xlab = 'Quantis Teóricos',
-        ylab =  'Quantis Empíricos',,
+        ylab =  'Quantis Empíricos',
         col = '#d8caa3'
     ); qqline(n_amostras_estimativas$est_beta, col = 'red', lty = 2)
 }
