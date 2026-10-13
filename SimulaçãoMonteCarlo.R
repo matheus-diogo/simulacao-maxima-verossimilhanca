@@ -1,6 +1,9 @@
 # Simulação de Monte Carlo
 
-## Importação dos Pacotes Necessários ############################################################################
+## Salvar o tempo inicial de execução do script
+tempo_inicial <- Sys.time()
+
+## Importação dos Pacotes Necessários
 library(tibble)
 library(dplyr)
 library(magrittr)
@@ -84,71 +87,22 @@ for (t in tamanhos_amostrais) {
 ## Avaliação dos Estimadores #####################################################################################
 
 ### Gerar a tabela com a avaliação dos estimadores para cada tamanho amostral
-for (t in tamanhos_amostrais) {
-    #### Calcular a média das estimativas
-    avaliacao_parcial_estimadores <- amostras_estimativas %>%
-        filter(n == t) %>%
+avaliacao_estimadores <- amostras_estimativas %>%
+    group_by(n) %>%
         summarise(
-            tamanho_amostral = t,
             med_est_alpha = mean(est_alpha),
-            med_est_beta = mean(est_beta)
-        )
-
-    #### Calcular o viés
-    avaliacao_parcial_estimadores <- avaliacao_parcial_estimadores %>%
-        mutate(
+            med_est_beta = mean(est_beta),
             vies_est_alpha = med_est_alpha - alpha,
-            vies_est_beta = med_est_beta - beta
+            vies_est_beta = med_est_beta - beta,
+            vies_rel_est_alpha = 100 * vies_est_alpha / alpha,
+            vies_rel_est_beta = 100 * vies_est_beta / beta,
+            var_mc_est_alpha = var(est_alpha),
+            var_mc_est_beta = var(est_beta),
+            eqm_est_alpha = sum((est_alpha - alpha) ** 2) / R,
+            eqm_est_beta = sum((est_beta - beta) ** 2) / R
         )
 
-    #### Calcular o viés relativo percentual
-    avaliacao_parcial_estimadores <- avaliacao_parcial_estimadores %>%
-        mutate(
-            vies_rel_est_alpha = (100 / alpha) * vies_est_alpha,
-            vies_rel_est_beta = (100 / beta) * vies_est_beta
-        )
-
-    #### Calcular a variância Monte Carlo
-    var_monte_carlo <- amostras_estimativas %>%
-        filter(n == t) %>%
-        mutate(
-            var_mc_est_alpha = var(est_alpha - mean(est_alpha)),
-            var_mc_est_beta = var(est_beta - mean(est_beta))
-        ) %>%
-        select(var_mc_est_alpha, var_mc_est_beta) %>%
-        slice(1)
-
-    avaliacao_parcial_estimadores <- bind_cols(
-        avaliacao_parcial_estimadores,
-        var_monte_carlo
-    )
-
-    #### Calcular o erro quadrático médio
-    erro_quad_medio <- amostras_estimativas %>%
-        filter(n == t) %>%
-        mutate(
-            eqm_est_alpha = var(est_alpha - alpha) * ((t) / (t - 1)),
-            eqm_est_beta = var(est_beta - beta) * ((t) / (t - 1))
-        ) %>%
-        select(eqm_est_alpha, eqm_est_beta) %>%
-        slice(1)
-
-    avaliacao_parcial_estimadores <- bind_cols(
-        avaliacao_parcial_estimadores,
-        erro_quad_medio
-    )
-
-    if (t == min(tamanhos_amostrais)) {
-        avaliacao_estimadores <- avaliacao_parcial_estimadores
-    } else {
-        avaliacao_estimadores <- bind_rows(
-            avaliacao_estimadores,
-            avaliacao_parcial_estimadores
-        )
-    }
-}
-
-### Exibir a tabela com a avaliação dos estimadores
+### Exibir a tabela com a avaliação das estimadores
 avaliacao_estimadores
 
 ### Salvar a tabela em um arquivo CSV
@@ -267,3 +221,6 @@ for (t in tamanhos_amostrais) {
         col = '#d8caa3'
     ); qqline(n_amostras_estimativas$est_beta, col = 'red', lty = 2)
 }
+
+## Salvar o tempo total de execução do script
+tempo_total <- Sys.time() - tempo_inicial
