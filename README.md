@@ -30,5 +30,7 @@ Ademais, a apresentação foi estruturada pelo LaTeX.
 
 Com os critérios estabelecidos para a avaliação dos estimadores de máxima verossimilhaça, teve-se que as médias das estimativas de alfa e beta aproximaram-se dos respectivos parâmetros verdadeiros à medida que o tamanho amostral aumentou; os vieses diminuíram em magnitude e as variâncias de Monte Carlo foram reduzidas, indicando estimativas menos dispersas e com menores desvios médios; as distribuições das estimativas obtidas para ambos os parâmetros aproximaram-se das distribuições assintóticas dos seus estimadores de Máxima Verossimilhança.
 
+Além disso, o script R teve tempo de execução de aproximadamente 47 segundos. 
+
 ## Licença
 Este projeto está sob a licença MIT.
